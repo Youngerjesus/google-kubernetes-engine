@@ -8,3 +8,5 @@ Coursera 에서 Google Kubernetes Engine 강의를 듣고 정리한 레파지토
 - [Kubernetes Control Plane](documents/k8s_control_plane.md)
 
 - [Google Kubernetes Engine Concepts](documents/google_kubernetes_concepts.md)
+
+- [Kubernetes Object Management](documents/kubernetes_object_management.md)
