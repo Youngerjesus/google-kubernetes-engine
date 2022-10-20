@@ -8,6 +8,7 @@
     - GKE 는 control plane 에 해당하는 모든 요소를 관리해준다.    
     - 일반적인 k8s 환경이라면 노드는 클러스터 관리자에 의해서 외부에서 만들어진다. 쿠버네티스 자체에서 만들어지지 않는다. 다만 GKE 는 이를 자동화했다.
       - 자동화는 Google 의 Compute Engine (virtual machine) 을 만들고 노드에 등록해주는 일을 해줌. 우린 이걸 cloud setting 에서 다루면 되고.
+        - (control plane 은 알아서 잘 만들어줌)
       - 노드는 Compute Engine 으로 구성되기 때문에 머신의 타입과 같은 적절한 설정을 할 수 있다. 
       - 기본은 e2-medium 으로 되는듯 (2vCPU, 4 gigabytes of memory) 
         - 이런 하드웨어 설정도 커스텀하는게 가능.  
