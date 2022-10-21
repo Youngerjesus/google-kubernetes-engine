@@ -17,12 +17,50 @@
   - 즉 pod 를 관리해줄 요소가 필요하다. 이것을 해주는 요소가 `Deployment`, `StatefulSets`, `DaemonSets`, `Jobs` 이렇게 있다.
   - `Deployment` 는 파드를 그룹으로 관리해주고 오래 생존하는 요소 (웹 서버 같은) 에 걸맞다.
     - `Deployment` 는 kube-scheduler 에 의해서 스케쥴된다. (이때 kube-apiserver 에 알린다.)
-    - `Deployment` 가 파드들을 관리해줌.  
+    - `Deployment` 가 파드들을 관리해줌. 
+      - pod 의 rolling upgrade 를 도와준다. 
+        - rolling upgrade 는 새로운 버전의 pod 를 출시하는 것. downtime 없이.  
+        - 이것을 할 때 두 번째 Replica set 을 만들어서 pod 의 수를 늘리고 첫 번쨰 Replica set 의 pod 수를 줄이는 과정을 통해서 이룸. 
+        - replicaSet 의 목적 자체는 파드의 상태를 유지하기 위해 있는 것. 
 - pod 를 스케쥴링 할 때 중요한 건 리소스 할당이다. 제한된 리소스를 가진 노드에 올린다면 해당 파드가 메모리와 cpu 를 다쓰게 되고 죽을 것. 
   - 그러므로 memory 와 cpu 와 같은 리소스 사용량을 파드에 지정하는 것도 필요하다.
 - namespace 를 통해서 pod, deployment, controller 들을 스코핑 하는게 가능하다. (single cluster 를 multiple cluster 로 만드는 효과.)
   - namespace 내에 리소스 할당량을 정해놓을 수 있다. 
   - 기본으로 만들어지는 네임스페이스는 `default` 와 `kube-system` 이 있다.  
+
+## A note about Services 
+
+- Service 는 pod 에 접근하기 위한 load-balancer 역할을 해준다.  
+- Service 는 크게 세 가지 종료의 타입이 있다.
+  - ClusterIP: 클러스터 내에서만 접근이 가능하다. (기본 타입임.)
+  - NodePort: 클러스터 내의 각각의 노드에 대한 IP 를 들어낸다. (구체적인 port 번호와 함께)
+  - LoadBalancer: Service 를 외부에 들어낼 떄 쓴다. 이때 로드 밸런서는 cloud provider 에 의해서 제공된다.
+    - GKE 같은 경우에 로드 밸런서는 기본적으로 `regional Network Load Balancing configuration` 를 제공한다. 
+      - Global HTTP(S) 요청을 받을려면 ingress 오브젝트를 이용해야한다.   
+
+### Controller objects to know about 
+
+- Kubernetes controller objects 들의 관계를 소개한다. 
+  - ReplicaSets
+  - Deployments
+  - Replication Controllers
+  - StatefulSets
+  - DaemonSets
+  - Jobs 
+- Deployments 는 내부적으로 자신만의 Replicaset 을 관리한다.
+  - 이를 통해서 create, update, roll back, scale pods, 등의 작업을 할 수 있다. 
+  - 그 중 하나가 rolling update. 
+  - Replication Controller 도 Deployment + Replicaset 의 역할을 수행하는데 더이상 쓰는걸 추천하진 않음. Deployment 를 써도 충분함. 
+- StatefulSets 은 Deployment 와 비슷한 점이 많음. 다른 점은 상태를 관리할 수 있음. 
+  - 이를 local state 라고 불리는데 StatefulSets 은 자신만의 Persistent Disk storage 나 stable network 를 가진다
+  - deployment 는 이를 가지지 않음.  
+  - (Stable Network ID 도 영구적으로 통신할 수 있는 주소가 필요해서 그런듯. data service 에 많이 이용한다. )
+- DaemonSet 을 이용하면 클러스터 내에 특정 노드들이나 모든 노드에서 파드를 실행하는게 가능하다. 
+  - 그래서 새로운 노드가 추가되더라도 조건에 맞으면 해당 파드를 실행할 수 있다. 
+  - daemon 이라는 뜻처럼 non-interactive process 라는 의미를 가지고 있음.
+  - 주로 logging (= fluentd) 와 같은 작업을 할 때 쓴다. 
+- Job Controller 는 주어진 task 를 수행하기 위한 pod 를 만든다. 그리고 해당 task 가 수행이 완료되면 pod 를 종료하고. 
+  - cronJob 이라는 것도 있는데 이건 스케쥴이 맞춰서 실행한다.  
 
 
 #### example 
