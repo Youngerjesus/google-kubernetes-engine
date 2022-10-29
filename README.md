@@ -12,3 +12,5 @@ Coursera 에서 Google Kubernetes Engine 강의를 듣고 정리한 레파지토
 - [Kubernetes Object Management](documents/kubernetes_object_management.md)
 
 - [Deployment](documents/deployment.md)
+
+- [Rolling update](documents/rolling_update.md)
