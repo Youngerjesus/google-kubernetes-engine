@@ -14,3 +14,5 @@ Coursera 에서 Google Kubernetes Engine 강의를 듣고 정리한 레파지토
 - [Deployment](documents/deployment.md)
 
 - [Rolling update](documents/rolling_update.md)
+
+- [Blue-Green Deployments](documents/blue_green_deployments.md)
