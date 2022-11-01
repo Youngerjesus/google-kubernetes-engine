@@ -18,6 +18,8 @@
 
 - 새 버전을 출시하는 rollout 의 경우에는 small fix 만 적용되도록 관리하는게 좋다. 운영 복잡성을 줄이기 위해서, 어떤 버전으로 롤백되도록 할 지 명확하게 하기 위해서
 
+  - roll out 같은 경우는 pod template 이 변경된 경우 (=`spec.template` 일때 트리거가 된다. 예시로 container image 변경이나, label 변경과 같은 것들. scaling 변경은 trigger 되지 않는다.)
+
 - 그리고 yaml 파일의 경우에도 source code repository 에서 관리하도록 하는게 좋다. 
 
 ## Services and Scaling
