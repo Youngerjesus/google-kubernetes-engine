@@ -22,3 +22,5 @@ Coursera 에서 Google Kubernetes Engine 강의를 듣고 정리한 레파지토
 - [Managing Deployment](documents/managing_deployments.md)
 
 - [Jobs and CronJob](documents/jobs_and_cronJobs.md)
+
+- [Cluster Scaling](documents/cluster_scaling.md)
