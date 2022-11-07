@@ -78,6 +78,7 @@ spec:
               operator: In
               values:
               - webserver
+        topologyKey: failure-domain.beta.kubernetes.io/zone
 ```
 
 - affinity 와 anti-affinity 는 `requiredDuringSchedulingIgnoredDuringExecution` 와 `preferredDuringSchedulingIgnoredDuringExecution` rule 로 완성된다.
@@ -91,7 +92,11 @@ spec:
 - `nodeSelectorTerms` 를 여러개  쓰는 경우 하나의 조건에만 만족해도 스케줄링이 될 수 있다.
 - 여기서는 `operator` 가 `In` 으로 쓰였지만 여러개가 있다. `NotIn, Exists, DoesNotExist, Gt, Lt`
 - affinity 에는 pod-level 에서 지정할 수 있도록 하는 podAffinity 도 있다. 
-  - node 에 배포되어있는 pod label 을 조건으로 해당 노드에 배치될 지 말지를 결정할 수 있다. 
+  - node 에 배포되어있는 pod label 을 조건으로 해당 노드에 배치될 지 말지를 결정할 수 있다.
+- topologyKey 를 통해서 노드 레벨보다 더 고레벨로 설정하는게 가능하다. 
+  - zone 이나 region 을 지정하는게 가능함. 
+  - topologykey 는 node label 의 key 로 통하고 topology 는 <key, value> pair 와 같다.
+  - 같은 key,value 는 같은 topology 에 속한다. 
 
 ## Pod Placement Example
 

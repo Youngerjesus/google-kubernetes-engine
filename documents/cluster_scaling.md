@@ -41,6 +41,7 @@
     - 자원이 없어서 pod 를 만들지 못하는 경우에 pod 의 상태는 `unschedulable` 이 된다. cluster autoscaling 을 적용하면 gke autoscaler 가 이를 탐지해서 스케일링 한다.   
   - auto scaling 된 노드가 충분히 활용되지 않거나 다른 노드에 pod 를 배치할 수 있는 경우에 GKE 는 해당 노드를 삭제한다.
   - 이렇게 노드가 삭제될 때 pod 는 갑작스러운 종료를 경험할 수 있기 떄문에 해당 어플리케이션은 이에 대응할 수 있어야한다.  
+- 노드가 underutlized (활용이 적은 경우), pod 를 다른 노드에 작동해도 되는 경우에 autoscaler 는 노드를 삭제할 수 있다. 
   
 ## Downscaling 
 
