@@ -24,3 +24,5 @@ Coursera 에서 Google Kubernetes Engine 강의를 듣고 정리한 레파지토
 - [Jobs and CronJob](documents/jobs_and_cronJobs.md)
 
 - [Cluster Scaling](documents/cluster_scaling.md)
+
+- [Controlling Pod Placement](documents/controling_pod_placement.md)
