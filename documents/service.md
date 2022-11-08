@@ -34,6 +34,7 @@ servicename_PORT: ex) tcp://10.0.0.11:6379: The name of the service host
   - 그래서 pod 는 kube dns 에 질문해서 service 를 찾을 수 있다. 
   - 같은 namespace 에 있는 service 를 찾는다면 그냥 service name 으로 물어보면 되고 다른 네임 스페이스라면 fully-qualified domain name 으로 물어봐야하거나 namespace 가 붙은 이름으로 물어봐야한다.
 - kube dns 의 high performance 를 위해서 GKE 는 node 수에 비례해서 kube dns 를 스케일링 한다. 
+- kube dns 는 service 와 pod 에 대한 resolving 을 수행한다.
   
 #### DNS Record Example 
 
