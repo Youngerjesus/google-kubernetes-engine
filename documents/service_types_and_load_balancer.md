@@ -93,3 +93,17 @@ spec:
 - type: LoadBalancer 라고 입력하면 Google Cloud 가 static 한 LoadBalancer IP Address 를 준다. 
 - 이렇게 만들면 external network load balancer 또는 internal TCP/UDP load balancer 를 만든다. 
   - `annotations: networking.GKE.io/load-balancer-type: Internal` 이라는 annotation 을 붙이면 내부용이 만들어지고 이외는 외부용이 만들어진다.
+  
+## Preserving the client source IP 
+
+- target container 에서 보는 source IP 는 client IP 가 아닐 것이다. 이것을 보존하는 방법에 대해서 알아볼 것. 
+- `spec.externalTrafficPolicy` 을 `local` 로 바꾸면 client IP 를 보존할 수 있다고 한다. 대신에 부하 분산이 안정적이지 않을 수 있다고 함. 기본은 `cluster` 이다.
+대신에 `cluster` 는 double-hop (= second hop) 이 생기는 문제가 있을 수 있다고 함.
+  - double hop 은 트래픽을 다른 노드에 있는 Pod 로 reroute 하는 과정에서 생겨날 수 있다. 근데 여기서는 hop 을 방지하기 위해서 다른 노드의 pod 로 트래픽을 변경할 때 SNAT'd (source network address translation) 과정을 거치도록 해서 막는다. 
+    - 대신에 client ip 가 proxy ip 로 변경되면서 pod 로 전송해야되서 client source ip 가 proxy ip 로 변경된다. 
+    - 이 과정을 없도록 하면 connection error 가 발생할 수 있기 떄문에 해야함.     
+  - ￿`local` 은 load balancer 를 이용한 traffic 분배는 node 단위로 이뤄지기 떄문에 (pod 가 아님.) 그러므로 균등한 로드 밸런싱이 아닐 수 있음. (￿`local` 은 노드안에 있는 pod 로만 트래픽을 분산할 수 있다.)
+    - `local` 을 쓸 경우에 그래서 `spec.healthCheckNodePort` 가 필요로 한다. pod 가 없는 노드에 트래픽이 전송된다면 drop 될 것이기 때문에.   
+    - 그래서 `local` 을 쓴다면 podAntiAffinity 를 통해서 가능한 Pod 가 많은 node 에 퍼지도록 해야한다. 
+- 즉 정리하자면 `spec.externalTrafficPolicy` 을 `cluster` (default) 로 쓰면 pod 간의 균등한 트래픽 분배를 할 수 있다. 대신에 client ip 가 변경된다.  
+`spec.externalTrafficPolicy` 을 `local` 로 쓴다면 client IP 를 보존할 수 있지만 대신에 트래픽의 불균형이 있을 수 있다. 
