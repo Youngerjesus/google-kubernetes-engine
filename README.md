@@ -32,3 +32,5 @@ Coursera 에서 Google Kubernetes Engine 강의를 듣고 정리한 레파지토
 - [Services](documents/service.md)
 
 - [Service Types and Load Balancer](documents/service_types_and_load_balancer.md)
+
+- [Ingress](documents/ingress_resource.md)
