@@ -36,3 +36,5 @@ Coursera 에서 Google Kubernetes Engine 강의를 듣고 정리한 레파지토
 - [Ingress](documents/ingress_resource.md)
 
 - [Container Native Load Balancer](documents/container-native_load_balancer.md)
+
+- [Volumes](documents/volumes.md)
