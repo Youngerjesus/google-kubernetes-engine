@@ -11,7 +11,10 @@
 ## Volumes
 
 - Pod 안에 있는 모든 컨테이너가 접근할 수 있는 디렉토리를 말한다.
-  - 어떠한 Volumes 은 ephemeral 하다. (일시적임.) 그래서 연결된 pod 가 있는 경우에만 존재한다. (pod 에 붙어서만 살 수 있다. 이런 뜻인듯.) 
+  - 어떠한 Volumes 은 ephemeral 하다. (일시적임.) 그래서 연결된 pod 가 있는 경우에만 존재한다. (pod 에 붙어서만 살 수 있다. 이런 뜻인듯.)
+  - Volume 의 종류는 ephemeral 과 persistent 두 종류가 있다.
+  - Volume 은 디렉토리라고 생각하면 된다.
+  - 하나의 pod 에 여러 종류의 Volume 을 쓸 수 있다. 
   - 예시로는 config map 과 empty directory 가 있다. 
 - 또 어떤 Volumes 은 Persistent 하다.
 - 모든 Volumes 은 Container 에 붙는게 아니라 pod 에 붙는다.
@@ -20,7 +23,9 @@
     - Persistent Volumes 은 Persistent Disk 와 연결된다. (cluster 가 변해도 상관없다고 하네.)
     - 생성은 cluster administrator 나, persistent volumes claim 에 의해서 이뤄지는듯.
   - GKE 에서 Persistent Volumes 는 NFS 라는 File Solution 을 이용한다고 한다. 이건 Google Cloud Solution 인듯.
-    - NFS 는 Network File System 이란 뜻으로 remote computer 에 저장을 하는 것을 말한다. 그리고 마치 로컬처럼 사용하는 것. 
+    - NFS 는 Network File System 이란 뜻으로 remote computer 에 저장을 하는 것을 말한다. 그리고 마치 로컬처럼 사용하는 것.
+- 볼륨을 사용할려면 `.spec.volumes` 에서 사용할 볼륨을 정하고 볼륨이 마운트 될 곳을 정해줘야한다. 이건 `.spec.containers[*].volumeMounts` 로 볼륨이 컨테이너의 어디에 올라갈 것인지 정해주는 것임.
+- 볼륨에도 권한이 있다. 쓰기 권한, 읽기 권한. 
 
 ### Ephemeral Volumes 
 

@@ -3,6 +3,7 @@
 ## 학습 목표 
 
 - Persistent Storage 를 어떻게 쓸 수 있는지를 알자.
+  - NFS, local, PersistentVolumeClaims 알면 될 듯. 
 
 ## Summary 
 
@@ -22,7 +23,10 @@
     - storage 의 양과 storage class 를 정해서 요청하고 운영팀에서는 이것들을 관리하고 
     - 이게 GKE 만 되는 기능인가? 클라우드 공급자만 제공해줄 수 있는 것 같은데.
       - 여러가지 volume type 이 있다. NFS 를 쓰면 될 것 같은데.  
-      - Worker Node 에다가 기록하는건 에바인가? local 이라는 volume type 으로 존재함. 
+      - Worker Node 에다가 기록하는건 에바인가? local 이라는 volume type 으로 존재함.
+    - `PersistentVolumeClaims` 도 볼륨 유형 중 하나이다. 특징은 사용자가 특정 클라우드의 세부 환경을 모르고 볼륨을 클레임 할 수 있다는 것. 
+      - GCE Persistent Disk or iSCSI 볼륨
+    - `PersistentVolume` 은 스토로지 리소스임. `PersistentVolumeClaims` 는 사용자가 스토로지를 요청하는 것이고. 
   - pod-level 과 cluster-level 의 persistent store 가 있다.
   - Persistent Disk 는 Network based 의 storage 이다.
   - 일단 Google 에서는 100GB Compute Engine 의 Persistent Disk 를 만들려면 이렇게한다. 
