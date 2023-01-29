@@ -37,4 +37,8 @@ Coursera 에서 Google Kubernetes Engine 강의를 듣고 정리한 레파지토
 
 - [Container Native Load Balancer](documents/container-native_load_balancer.md)
 
+- [GKE: Service Discovery And DNS](documents/service_discovery_and_dns.md)
+
 - [Volumes](documents/volumes.md)
+
+- [Volume Type 2](documents/volume%20type%202.md)
