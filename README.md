@@ -42,3 +42,5 @@ Coursera 에서 Google Kubernetes Engine 강의를 듣고 정리한 레파지토
 - [Volumes](documents/volumes.md)
 
 - [Volume Type 2](documents/volume%20type%202.md)
+
+- [The Persistent Volume abstraction](documents/The%20PersistnetVolume%20abstraction.md)
